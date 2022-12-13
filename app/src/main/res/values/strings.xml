@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Image to text project</string>
+    <string name="take_picture">Take Picture</string>
+    <string name="results">Results</string>
+    <string name="recognized_text">Recognized text</string>
+</resources>
