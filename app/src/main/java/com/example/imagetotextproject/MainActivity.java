@@ -34,6 +34,9 @@ import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.TextRecognizer;
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class MainActivity extends AppCompatActivity {
 
     private MaterialButton ImageButton;
@@ -96,14 +99,21 @@ try {
     InputImage image = InputImage.fromFilePath(this , imageUri);
     dialog.setMessage("Converting to text");
 
-    Task<Text> testResult = recognizer.process(image).addOnSuccessListener(text -> {
+    Task<Text> testResult = recognizer.process(image).addOnSuccessListener((Text text) -> {
 
-     dialog.dismiss();
+        dialog.dismiss();
 
       String recognizedText1 = text.getText();
-
+        ArrayList<String> x = new ArrayList<>();
+        Scanner scanner = new Scanner(recognizedText1);
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            x.add(line);
+        }
+        Double tipOut = Double.parseDouble(x.get(x.size()-1))*0.075;
+        scanner.close();
         Log.d(TAG, "onSuccess: recognizedText1 " + recognizedText1);
-     recognizedText.setText(recognizedText1);
+     recognizedText.setText(new StringBuilder().append(" You own the support staff $").append(tipOut).append(" dollars").toString());
     }).addOnFailureListener(e -> {
 
         dialog.dismiss();
